@@ -7,7 +7,7 @@ import { Spinner } from '../components/Spinner';
 import { EmptyState, PageHeader } from '../components/Common';
 import { useToast } from '../lib/toast';
 import { formatDateTime } from '../lib/utils';
-import type { Event, Profile, EventRsvp } from '../lib/types';
+import type { Event, Profile } from '../lib/types';
 
 type EventWithMeta = Event & { rsvp_count?: number; my_rsvp?: string };
 
@@ -30,7 +30,7 @@ export default function Events() {
     if (user && eventList.length > 0) {
       const { data: rsvps } = await supabase.from('event_rsvps').select('event_id, status').eq('user_id', user.id);
       const rsvpMap: Record<string, string> = {};
-      (rsvps ?? []).forEach((r: EventRsvp) => { rsvpMap[r.event_id] = r.status; });
+      (rsvps ?? []).forEach((r: { event_id: string; status: string }) => { rsvpMap[r.event_id] = r.status; });
 
       const { data: counts } = await supabase.from('event_rsvps').select('event_id').eq('status', 'going');
       const countMap: Record<string, number> = {};

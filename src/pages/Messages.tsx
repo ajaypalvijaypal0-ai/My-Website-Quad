@@ -170,7 +170,7 @@ export default function Messages() {
       .select('conversation_id')
       .eq('user_id', user.id);
 
-    const myConvIds = (myParts ?? []).map((p: ConversationParticipant) => p.conversation_id);
+    const myConvIds = (myParts ?? []).map((p: { conversation_id: string }) => p.conversation_id);
     if (myConvIds.length > 0) {
       const { data: otherParts } = await supabase
         .from('conversation_participants')

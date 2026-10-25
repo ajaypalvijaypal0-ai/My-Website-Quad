@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
   Home, Users, Calendar, MessageSquare, Bell, Search, Settings, LogOut,
@@ -48,7 +48,7 @@ export function AppLayout() {
 
       <nav className="flex-1 space-y-1 px-3 py-2">
         {navItems.map((item) => (
-          <Link
+          <NavLink
             key={item.to}
             to={item.to}
             onClick={() => setSidebarOpen(false)}
@@ -56,7 +56,7 @@ export function AppLayout() {
           >
             <item.icon className="h-5 w-5" />
             {item.label}
-          </Link>
+          </NavLink>
         ))}
       </nav>
 
